@@ -22,6 +22,7 @@ public class HomeController {
         return "index.html";
     }
 
+
     @GetMapping("/greet")
     public String greet(){
         String greeting = myService.getHello();
