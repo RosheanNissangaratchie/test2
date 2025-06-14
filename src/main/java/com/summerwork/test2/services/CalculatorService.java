@@ -10,7 +10,9 @@ public class CalculatorService {
     public int getSub(int x, int y) {
         return x - y;
     }
-    public String checkOddOrEven(){
+
+    public String checkOddOrEven(int x) {
+
         if(x % 2 == 0){
             return x + " Is Even" ;
         } else{

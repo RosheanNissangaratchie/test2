@@ -26,8 +26,8 @@ public class CalculatorController {
     }
 
     @GetMapping("/check")
-    public int check(@RequestParam int x) {
-        int result = Integer.parseInt(calculatorService.checkOddOrEven());
-        return result;
+    public String check(@RequestParam int x) {
+        return calculatorService.checkOddOrEven(x);
+
     }
 }
