@@ -4,6 +4,7 @@ package com.summerwork.test2.controller;
 import com.summerwork.test2.model.Book;
 import com.summerwork.test2.repository.BookRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -40,4 +41,29 @@ public class BookController {
         bookRepository.deleteById(id);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<Book> updateOrCreateBook(@RequestBody Book updatedBook) {
+        Optional<Book> existingBook = bookRepository.findById(updatedBook.id());
+        if (existingBook.isPresent()) {
+
+            Book bookToUpdate = existingBook.get();
+            bookToUpdate = new Book(
+                    updatedBook.id(),
+                    updatedBook.title(),
+                    updatedBook.pages(),
+                    updatedBook.author()
+            );
+            Book savedBook = bookRepository.save(bookToUpdate);
+            return ResponseEntity.ok(savedBook);
+        } else {
+            Book newBook = new Book(
+                    null,
+                    updatedBook.title(),
+                    updatedBook.pages(),
+                    updatedBook.author()
+            );
+            Book savedBook = bookRepository.save(newBook);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
+        }
+    }
 }
