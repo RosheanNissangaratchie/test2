@@ -24,4 +24,10 @@ public class CalculatorController {
         int result = calculatorService.getSub(a, b);
         return result;
     }
+
+    @GetMapping("/check")
+    public String check(@RequestParam int x) {
+        return calculatorService.checkOddOrEven(x);
+
+    }
 }
